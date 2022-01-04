@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Global } from '@emotion/react'
+
+import { DisplayContainer } from 'containers'
+
+const global = `
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/montserrat_regular.woff2') format('woff2'), url('/fonts/montserrat_regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/montserrat_medium.woff2') format('woff2'), url('/fonts/montserrat_medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/montserrat_bold.woff2') format('woff2'), url('/fonts/montserrat_bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+  }
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Global styles={global} />
+      <DisplayContainer />
+    </>
+  )
 }
 
-export default App;
+export default App
