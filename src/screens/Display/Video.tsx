@@ -16,4 +16,5 @@ const Video = React.forwardRef<HTMLVideoElement, Props>(({file, ...props}, ref) 
     />
   )
 })
+
 export default Video
