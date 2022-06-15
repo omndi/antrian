@@ -1,16 +1,13 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect } from 'react'
 import {Howl, Howler} from 'howler';
 
 export default function useVoice(counter: number) {
-  const files = useMemo(() => {
-    return getFiles(counter)
-  }, [counter])
-
   const play = useCallback(() => {
     Howler.stop()
+    const files = getFiles(counter)
     const locateFiles = ['nomorantrian', ...files].map(voiceDir)
     queueSound(locateFiles, 0)
-  }, [files])
+  }, [counter])
 
   useEffect(() => {
     play()

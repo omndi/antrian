@@ -47,8 +47,8 @@ export default function DisplayContainer() {
   return (
     <Base>
       <DisplayScreen
-        counter = {counter}
-        openPortal = {openWindowPortal}
+        counter={counter}
+        openPortal={openWindowPortal}
       />
       <ControllerPortal
         closeWindowPortal={closeWindowPortal}
