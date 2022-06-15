@@ -30,8 +30,9 @@ class Portal extends React.PureComponent {
 }
 
 const copyStyles = (sourceDoc, targetDoc) => {
-  Array.from(sourceDoc.styleSheets).forEach(styleSheet => {
-    if (styleSheet.cssRules) { // for <style> elements
+  const sheets = getStylesheets(sourceDoc)
+  sheets.forEach(styleSheet => {
+    if (styleSheet?.cssRules) { // for <style> elements
       const newStyleEl = sourceDoc.createElement('style');
 
       Array.from(styleSheet.cssRules).forEach(cssRule => {
@@ -50,4 +51,10 @@ const copyStyles = (sourceDoc, targetDoc) => {
   });
 }
 
+const getStylesheets = (sourceDoc) => {
+  // https://betterprogramming.pub/how-to-fix-the-failed-to-read-the-cssrules-property-from-cssstylesheet-error-431d84e4a139
+  return Array.from(sourceDoc.styleSheets).filter(
+    (styleSheet) => !styleSheet.href || styleSheet.href.startsWith(window.location.origin)
+  )
+}
 export default Portal
