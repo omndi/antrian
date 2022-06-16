@@ -3,11 +3,13 @@ import * as cld from "cloudinary-video-player";
 import "cloudinary-video-player/dist/cld-video-player.light.min";
 import "cloudinary-video-player/dist/cld-video-player.light.min.css";
 
+const domId = 'video-player'
 const CDVideo = React.forwardRef(({file, ...props}, ref) => {
   const videoPlayerInit = () => {
-    const player = cld.videoPlayer("video-player", {
+    const player = cld.videoPlayer(domId, {
       cloud_name: process.env.REACT_APP_CD_CLOUDNAME,
     });
+    player.transformation({quality: 'auto'})
 
     player
       .playlistByTag(process.env.REACT_APP_CD_PLAYLIST_TAG, {
@@ -33,7 +35,7 @@ const CDVideo = React.forwardRef(({file, ...props}, ref) => {
       {...props}
       ref={ref}
       className={`cld-video-player ${props.className}`}
-      id="video-player"
+      id={domId}
       muted={false}
       controls
       autoPlay
