@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react'
+import {useCallback, useEffect, useRef} from 'react'
 import styled from '@emotion/styled'
 import { Flex } from "@chakra-ui/react"
 
@@ -10,6 +10,11 @@ function DisplayScreen({ calling, counter, openPortal }) {
   useEffect(() => {
     videoRef.current.muted = calling
   }, [calling])
+
+  const onCounterClick = useCallback(() => {
+    if (videoRef.current.paused) videoRef.current.play()
+    openPortal()
+  }, [videoRef])
 
   return (
     <Flex h="100vh">
@@ -27,7 +32,7 @@ function DisplayScreen({ calling, counter, openPortal }) {
         w="25%"
       >
         <Header>Nomor Antrian</Header>
-        <Counter onClick={openPortal}>{counter}</Counter>
+        <Counter onClick={onCounterClick}>{counter}</Counter>
       </Flex>
     </Flex>
   )
