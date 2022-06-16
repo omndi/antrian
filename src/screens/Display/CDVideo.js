@@ -16,14 +16,6 @@ const CDVideo = React.forwardRef(({file, ...props}, ref) => {
         autoAdvance: true,
         repeat: true
       })
-      .then(function () {
-        let list = player
-          .playlist()
-          .list()
-          .map((source) => {
-            return source.publicId();
-          });
-      });
   };
 
   useEffect(() => {
