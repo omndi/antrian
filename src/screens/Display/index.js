@@ -24,7 +24,7 @@ function DisplayScreen({ counter, openPortal }) {
   const onCounterClick = useCallback(() => {
     if (videoRef.current.paused) videoRef.current.play()
     openPortal()
-  }, [videoRef])
+  }, [videoRef, openPortal])
 
   return (
     <Flex h="100vh">
