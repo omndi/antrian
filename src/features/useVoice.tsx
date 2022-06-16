@@ -1,17 +1,13 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 import {Howl, Howler} from 'howler';
 
-export default function useVoice(counter: number) {
-  const play = useCallback(() => {
+export default function useVoice() {
+  const play = useCallback((counter:number) => {
     Howler.stop()
     const files = getFiles(counter)
     const locateFiles = ['nomorantrian', ...files].map(voiceDir)
-    queueSound(locateFiles, 0)
-  }, [counter])
-
-  useEffect(() => {
-    play()
-  }, [counter, play])
+    queueSound(locateFiles)
+  }, [])
 
   return play
 }
@@ -49,7 +45,7 @@ const getFiles = (counter: number) => {
   })
 }
 
-const queueSound = (files:string[], index:number) => {
+const queueSound = (files:string[], index:number = 0) => {
   new Howl({
     autoplay: true,
     src: [files[index]],

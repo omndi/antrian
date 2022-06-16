@@ -33,7 +33,7 @@ export default function ControllerScreen({ counter, ...props }) {
           </Button>
         </HStack>
         <HStack>
-          <Button color="warning" onClick={() => props.reCall()}>Re-call</Button>
+          <Button color="warning" onClick={() => props.play(counter)}>Re-call</Button>
           <Button type="button" color="danger" onClick={() => props.setCounter(number)}>Set</Button>
         </HStack>
         <Button color="danger" onClick={props.closeWindowPortal}>Close Window</Button>
