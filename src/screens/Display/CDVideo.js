@@ -4,6 +4,8 @@ import "cloudinary-video-player/dist/cld-video-player.light.min";
 import "cloudinary-video-player/dist/cld-video-player.light.min.css";
 
 const domId = 'video-player'
+const shuffle = () => Math.random() > 0.5 ? 1 : -1
+
 const CDVideo = React.forwardRef(({file, ...props}, ref) => {
   const videoPlayerInit = () => {
     const player = cld.videoPlayer(domId, {
@@ -14,7 +16,8 @@ const CDVideo = React.forwardRef(({file, ...props}, ref) => {
     player
       .playlistByTag(process.env.REACT_APP_CD_PLAYLIST_TAG, {
         autoAdvance: true,
-        repeat: true
+        repeat: true,
+        sorter: shuffle,
       })
   };
 
