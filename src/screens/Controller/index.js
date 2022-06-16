@@ -4,12 +4,12 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
 
 import { Layout } from 'features'
 
-export default function ControllerScreen({ counter, ...props }) {
+export default function ControllerScreen({ call, counter, ...props }) {
   const [number, setNumber] = useState(counter)
   useEffect(() => {
     setNumber(counter)
-    props.call(counter)
-  }, [counter])
+    call(counter)
+  }, [call, counter])
 
   return (
     <Layout.ViewPortCentered>
@@ -34,7 +34,7 @@ export default function ControllerScreen({ counter, ...props }) {
           </Button>
         </HStack>
         <HStack>
-          <Button color="warning" onClick={() => props.call(counter)}>Re-call</Button>
+          <Button color="warning" onClick={() => call(counter)}>Re-call</Button>
           <Button type="button" color="danger" onClick={() => props.setCounter(number)}>Set</Button>
         </HStack>
         <Button color="danger" onClick={props.closeWindowPortal}>Close Window</Button>
