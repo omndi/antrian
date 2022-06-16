@@ -1,15 +1,17 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import {Howl, Howler} from 'howler';
 
-export default function useVoice() {
-  const play = useCallback((counter:number) => {
+export default function useVoice(): any {
+  const [calling, setCalling] = useState(false)
+  const call = useCallback((counter:number) => {
+    setCalling(true)
     Howler.stop()
     const files = getFiles(counter)
     const locateFiles = ['nomorantrian', ...files].map(voiceDir)
-    queueSound(locateFiles)
+    queueSound(locateFiles, () => setCalling(false))
   }, [])
 
-  return play
+  return [call, {calling}]
 }
 
 const voiceDir = (f:string) => process.env.PUBLIC_URL + `/voice/${f}.wav`
@@ -45,14 +47,17 @@ const getFiles = (counter: number) => {
   })
 }
 
-const queueSound = (files:string[], index:number = 0) => {
+const queueSound = (files:string[], done:any, index:number = 0) => {
   new Howl({
     autoplay: true,
     src: [files[index]],
     onend: () => {
-      if (index < files.length) {
-        queueSound(files, index+1)
-      }    
+      const nextIndex = index+1
+      if (nextIndex < files.length) {
+        queueSound(files, done, nextIndex)
+      } else {
+        done()
+      }
     }
   })
   // sound.play()

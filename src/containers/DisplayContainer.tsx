@@ -34,13 +34,13 @@ export default function DisplayContainer() {
     }
   }, [])
 
-  const play = useVoice()
+  const [call, {calling}] = useVoice()
 
   const updateCounter = (value = 1) => {
     setCounter(prev => {
       const counter = prev + value
       const finalCounter = counter === 0 ? prev : counter
-      play(finalCounter)
+      call(finalCounter)
       return finalCounter
     })
   }
@@ -48,13 +48,14 @@ export default function DisplayContainer() {
   return (
     <Base>
       <DisplayScreen
+        calling={calling}
         counter={counter}
         openPortal={openWindowPortal}
       />
       <ControllerPortal
         closeWindowPortal={closeWindowPortal}
         counter={counter}
-        play={play}
+        call={call}
         setCounter={setCounter}
         updateCounter={updateCounter}
         windowPortal={windowPortal}
@@ -66,7 +67,7 @@ export default function DisplayContainer() {
 type ControllerPortalProps = {
   closeWindowPortal: () => void
   counter: number
-  play: (counter:number) => void
+  call: (counter:number) => void
   setCounter: React.Dispatch<React.SetStateAction<number>>
   updateCounter: () => void
   windowPortal: boolean

@@ -1,36 +1,21 @@
-import {useCallback, useEffect, useRef, useState} from 'react'
+import {useEffect, useRef} from 'react'
 import styled from '@emotion/styled'
 import { Flex } from "@chakra-ui/react"
 
 import CDVideo from './CDVideo'
 
-function DisplayScreen({ counter, openPortal }) {
-  const [mute, setMute] = useState(false)
+function DisplayScreen({ calling, counter, openPortal }) {
   const videoRef = useRef(null)
 
   useEffect(() => {
-    if (videoRef.current) {
-      setMute(true)
-      setTimeout(() => {
-        setMute(false)
-      }, 3000);
-    }
-  }, [counter])
-
-  useEffect(() => {
-    videoRef.current.muted = mute
-  }, [mute])
-
-  const onCounterClick = useCallback(() => {
-    if (videoRef.current.paused) videoRef.current.play()
-    openPortal()
-  }, [videoRef, openPortal])
+    videoRef.current.muted = calling
+  }, [calling])
 
   return (
     <Flex h="100vh">
       <Flex w="75%" h="100%">
         <StyledVideo
-          style={{opacity: mute ? 0.4 : 1, width: '100%', height: '100%'}}
+          style={{opacity: calling ? 0.3 : 1, width: '100%', height: '100%'}}
           ref={videoRef}
         />
       </Flex>
@@ -42,7 +27,7 @@ function DisplayScreen({ counter, openPortal }) {
         w="25%"
       >
         <Header>Nomor Antrian</Header>
-        <Counter onClick={onCounterClick}>{counter}</Counter>
+        <Counter onClick={openPortal}>{counter}</Counter>
       </Flex>
     </Flex>
   )
@@ -61,7 +46,7 @@ const Header = styled.h1`
 `
 
 const StyledVideo = styled(CDVideo)`
-  transition: opacity, .75s ease-in-out;
+  transition: opacity, 1.25s ease-in-out;
 `
 
 export default DisplayScreen
