@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Portal } from 'features'
 import { ControllerScreen } from 'screens'
 

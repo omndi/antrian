@@ -1,15 +1,13 @@
-import {useCallback, useEffect, useRef} from 'react'
+import {useCallback, useEffect} from 'react'
 import styled from '@emotion/styled'
 import { Flex } from "@chakra-ui/react"
 
 import Video from './Video'
 
-function DisplayScreen({ calling, counter, openPortal }) {
-  const videoRef = useRef(null)
-
+function DisplayScreen({ calling, counter, openPortal, videoRef }) {
   useEffect(() => {
     videoRef.current.muted = calling
-  }, [calling])
+  }, [calling, videoRef])
 
   const onCounterClick = useCallback(() => {
     if (videoRef.current.paused) videoRef.current.play()

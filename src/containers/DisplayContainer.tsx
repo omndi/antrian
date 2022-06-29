@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import styled from '@emotion/styled'
 
 import { DisplayScreen } from 'screens'
@@ -7,8 +7,8 @@ import useVoice from 'features/useVoice'
 
 export default function DisplayContainer() {
   const [counter, setCounter] = useState(1)
-  // const [second, setSecond] = useState(0)
   const [windowPortal, toggleWindowPortal] = useState(false)
+  const videoRef = useRef(null)
 
   const openWindowPortal = () => {
     toggleWindowPortal(true)
@@ -22,10 +22,6 @@ export default function DisplayContainer() {
     window.addEventListener('beforeunload', () => {
       closeWindowPortal()
     })
-
-    // window.setInterval(() => {
-    //   setSecond(prev => prev + 1)
-    // }, 1000);
   
     return () => {
       window.removeEventListener('beforeunload', () => {
@@ -51,6 +47,7 @@ export default function DisplayContainer() {
         calling={calling}
         counter={counter}
         openPortal={openWindowPortal}
+        videoRef={videoRef}
       />
       <ControllerPortal
         closeWindowPortal={closeWindowPortal}
@@ -58,6 +55,7 @@ export default function DisplayContainer() {
         call={call}
         setCounter={setCounter}
         updateCounter={updateCounter}
+        videoRef={videoRef}
         windowPortal={windowPortal}
       />
     </Base>
@@ -70,6 +68,7 @@ type ControllerPortalProps = {
   call: (counter:number) => void
   setCounter: React.Dispatch<React.SetStateAction<number>>
   updateCounter: () => void
+  videoRef: React.MutableRefObject<null>
   windowPortal: boolean
 }
 
