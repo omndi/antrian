@@ -18,7 +18,7 @@ function DisplayScreen({ calling, counter, openPortal }) {
 
   return (
     <Flex h="100vh">
-      <Flex w="75%" h="100%">
+      <Flex w="70%" h="100%">
         <StyledVideo
           style={{opacity: calling ? 0.3 : 1, width: '100%', height: '100%'}}
           ref={videoRef}
@@ -29,7 +29,8 @@ function DisplayScreen({ calling, counter, openPortal }) {
         flexDirection="column"
         justifyContent="center"
         px={4}
-        w="25%"
+        paddingRight={32}
+        w="30%"
       >
         <Header>Nomor Antrian</Header>
         <Counter onClick={onCounterClick}>{counter}</Counter>
