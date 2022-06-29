@@ -2,7 +2,7 @@ import {useCallback, useEffect, useRef} from 'react'
 import styled from '@emotion/styled'
 import { Flex } from "@chakra-ui/react"
 
-import CDVideo from './CDVideo'
+import Video from './Video'
 
 function DisplayScreen({ calling, counter, openPortal }) {
   const videoRef = useRef(null)
@@ -50,7 +50,7 @@ const Header = styled.h1`
   text-align: center;
 `
 
-const StyledVideo = styled(CDVideo)`
+const StyledVideo = styled(Video)`
   transition: opacity, 1.25s ease-in-out;
 `
 

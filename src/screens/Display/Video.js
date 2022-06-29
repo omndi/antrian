@@ -4,9 +4,15 @@ import "cloudinary-video-player/dist/cld-video-player.light.min";
 import "cloudinary-video-player/dist/cld-video-player.light.min.css";
 
 const domId = 'video-player'
-const shuffle = () => Math.random() > 0.5 ? 1 : -1
+const alphabetical = (a, b) => {
+  const nameA = a.publicId.toUpperCase()
+  const nameB = b.publicId.toUpperCase()
+  if (nameA < nameB) return -1
+  if (nameA > nameB) return 1
+  return 0
+}
 
-const CDVideo = React.forwardRef(({file, ...props}, ref) => {
+const Video = React.forwardRef(({file, ...props}, ref) => {
   const videoPlayerInit = () => {
     const player = cld.videoPlayer(domId, {
       cloud_name: process.env.REACT_APP_CD_CLOUDNAME,
@@ -17,7 +23,7 @@ const CDVideo = React.forwardRef(({file, ...props}, ref) => {
       .playlistByTag(process.env.REACT_APP_CD_PLAYLIST_TAG, {
         autoAdvance: true,
         repeat: true,
-        sorter: shuffle,
+        sorter: alphabetical,
       })
   };
 
@@ -38,4 +44,4 @@ const CDVideo = React.forwardRef(({file, ...props}, ref) => {
   )
 })
 
-export default CDVideo
+export default Video
