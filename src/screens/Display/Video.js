@@ -4,13 +4,9 @@ import "cloudinary-video-player/dist/cld-video-player.light.min";
 import "cloudinary-video-player/dist/cld-video-player.light.min.css";
 
 const domId = 'video-player'
-const alphabetical = (a, b) => {
-  const nameA = a.publicId.toUpperCase()
-  const nameB = b.publicId.toUpperCase()
-  if (nameA < nameB) return -1
-  if (nameA > nameB) return 1
-  return 0
-}
+// https://stackoverflow.com/a/38641281/1586406
+const collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
+const localeCompare = (a, b) => collator.compare(a.publicId, b.publicId) 
 
 const Video = React.forwardRef(({file, ...props}, ref) => {
   const videoPlayerInit = () => {
@@ -23,7 +19,7 @@ const Video = React.forwardRef(({file, ...props}, ref) => {
       .playlistByTag(process.env.REACT_APP_CD_PLAYLIST_TAG, {
         autoAdvance: true,
         repeat: true,
-        sorter: alphabetical,
+        sorter: localeCompare,
       })
   };
 
