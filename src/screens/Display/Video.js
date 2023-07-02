@@ -8,21 +8,21 @@ const domId = 'video-player'
 const collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
 const localeCompare = (a, b) => collator.compare(a.publicId, b.publicId) 
 
+const videoPlayerInit = () => {
+  const player = cld.videoPlayer(domId, {
+    cloud_name: process.env.REACT_APP_CD_CLOUDNAME,
+  });
+  player.transformation({quality: 'auto'})
+
+  player
+    .playlistByTag(process.env.REACT_APP_CD_PLAYLIST_TAG, {
+      autoAdvance: true,
+      repeat: true,
+      sorter: localeCompare,
+    })
+};
+
 const Video = React.forwardRef(({file, ...props}, ref) => {
-  const videoPlayerInit = () => {
-    const player = cld.videoPlayer(domId, {
-      cloud_name: process.env.REACT_APP_CD_CLOUDNAME,
-    });
-    player.transformation({quality: 'auto'})
-
-    player
-      .playlistByTag(process.env.REACT_APP_CD_PLAYLIST_TAG, {
-        autoAdvance: true,
-        repeat: true,
-        sorter: localeCompare,
-      })
-  };
-
   useEffect(() => {
     videoPlayerInit()
   }, []);
